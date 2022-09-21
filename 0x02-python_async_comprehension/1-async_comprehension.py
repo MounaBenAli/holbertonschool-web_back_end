@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Async Generator """
+""" Async Comprehensions """
 
 import asyncio
 from typing import List
