@@ -16,11 +16,8 @@ class BasicCache(BaseCaching):
 
     def put(self, key, item):
         """Assigns to the dictionary self.cache_data the values for the keys"""
-        if key or item is None:
-            return None
-        else:
+        if key and item:
             self.cache_data[key] = item
-            return self.cache_data
 
     def get(self, key):
         """Return the value in self.cache_data linked to key."""
