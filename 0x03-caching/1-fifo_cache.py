@@ -24,8 +24,6 @@ class FIFOCache(BaseCaching):
             first_key = next(iter(self.cache_data))
             print("DISCARD:", first_key)
             del self.cache_data[first_key]
-        else:
-            return None
 
     def get(self, key):
         """Return the value in self.cache_data linked to key."""
