@@ -5,10 +5,12 @@ from base_caching import BaseCaching
 
 
 class BasicCache(BaseCaching):
-    """child class inherits from parent BaseCaching"""
+    """child class inherits from parent BaseCaching
+        BaseCaching defines:
+      - constants of your caching system
+      - where your data are stored (in a dictionary)
+    """
 
-    def __init__(self):
-        super().__init__()
 
     def put(self, key, item):
         """Assigns to the dictionary self.cache_data the values for the keys"""
