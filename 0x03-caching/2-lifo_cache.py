@@ -19,6 +19,9 @@ class LIFOCache(BaseCaching):
            If the number of items in self.cache_data > BaseCaching.MAX_ITEMS:
            discard the last item put in cache (LIFO algorithm)
         """
+        if not key or not item:
+            return
+
         self.cache_data[key] = item
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
             if key in self.cache_data.keys():
