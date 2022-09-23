@@ -1,0 +1,26 @@
+#!/usr/bin/python3
+""" Basic dictionary """
+
+from base_caching import BaseCaching
+
+
+class BasicCache(BaseCaching):
+    """child class inherits from parent BaseCaching"""
+
+    def __init__(self):
+        super().__init__()
+
+    def put(self, key, item):
+        """Assigns to the dictionary self.cache_data the values for the keys"""
+        if key and item is None:
+            return None
+        else:
+            self.cache_data[key] = item
+            return self.cache_data
+
+    def get(self, key):
+        """Return the value in self.cache_data linked to key."""
+        if key is None or key not in self.cache_data.keys():
+            return None
+        else:
+            return self.cache_data[key]
