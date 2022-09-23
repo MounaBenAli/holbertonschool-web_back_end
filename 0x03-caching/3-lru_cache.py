@@ -23,7 +23,7 @@ class LRUCache(BaseCaching):
         """
         if not key or not item:
             return
-        
+
         self.cache_data[key] = item
         self.cache_data.move_to_end(key)
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
