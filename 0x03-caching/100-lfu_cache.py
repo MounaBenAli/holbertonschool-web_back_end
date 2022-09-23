@@ -21,7 +21,14 @@ class LFUCache(BaseCaching):
            if you find more than 1 item to discard,
            use the LRU algorithm to discard only the least recently used
         """
-        pass
+        if not key or not item:
+            return
+
+        self.cache_data[key] = item
+        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
+            if key in self.cache_data.keys():
+                LFU_key = self.cache_data.pop()
+                print("DISCARD:", LFU_key)
 
     def get(self, key):
         """Return the value in self.cache_data linked to key."""
