@@ -30,6 +30,15 @@ def stats() -> str:
 def unauthorized() -> str:
     """ GET /api/v1/unauthorized
     Return:
-      - the status of the API for request unauthorized
+      - the status of the API for an unauthorized request
     """
-    return jsonify(abort(401, {'message': 'custom message'}))
+    return jsonify(abort(401, {"error": "Unauthorized"}))
+
+
+@app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
+def forbidden() -> str:
+    """ GET /api/v1/forbidden
+    Return:
+      - the status of the API for a forbidden request
+    """
+    return jsonify(abort(403, {"error": "Forbidden"}))
