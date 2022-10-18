@@ -15,14 +15,12 @@ from typing import (
 
 class TestAccessNestedMap(unittest.TestCase):
     """ unit test for utils.access_nested_map """
-    @parameterized.expand(
-        [
+    @parameterized.expand([
             ({"a": 1}, ("a",), 1),
             ({"a": {"b": 2}}, ("a",), {"b": 2}),
             ({"a": {"b": 2}}, ("a", "b"), 2)
-        ]
-    )
-    def access_nested_map(
+        ])
+    def test_access_nested_map(
             self, nested_map: Mapping, path: Sequence, expected) -> Any:
         """Tests that the method returns what it is supposed to."""
         return self.assertEqual(access_nested_map(nested_map, path), expected)
