@@ -2,7 +2,6 @@
 """Unittests for utils.py a library for accessing github API."""
 
 import unittest
-from unittest import TestCase
 from utils import access_nested_map
 from parameterized import parameterized
 from typing import (
@@ -14,7 +13,7 @@ from typing import (
 )
 
 
-class TestAccessNestedMap(TestCase):
+class TestAccessNestedMap(unittest.TestCase):
     """ unit test for utils.access_nested_map """
     @parameterized.expand(
         [
@@ -27,3 +26,7 @@ class TestAccessNestedMap(TestCase):
             self, nested_map: Mapping, path: Sequence, expected) -> Any:
         """Tests that the method returns what it is supposed to."""
         return self.assertEqual(access_nested_map(nested_map, path), expected)
+
+
+if __name__ == '__main__':
+    unittest.main()
