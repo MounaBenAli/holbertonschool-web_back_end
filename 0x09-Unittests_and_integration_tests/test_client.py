@@ -51,7 +51,7 @@ class TestGithubOrgClient(unittest.TestCase):
     @parameterized.expand([
         ({"license": {"key": "my_license"}}, "my_license", True),
         ({"license": {"key": "other_license"}}, "my_license", False)
-    ])
+        ])
     def test_has_license(self, repo, license_key, result):
         """unit-test GithubOrgClient.has_license"""
         test = GithubOrgClient('test')
