@@ -2,7 +2,10 @@
 """Unittests for utils.py a library for accessing github API."""
 
 import unittest
-from utils import access_nested_map
+from unittest.mock import patch, Mock
+
+from defer import return_value
+from utils import access_nested_map, get_json
 from parameterized import parameterized
 from typing import (
     Mapping,
@@ -14,25 +17,41 @@ from typing import (
 
 
 class TestAccessNestedMap(unittest.TestCase):
-    """ unit test for utils.access_nested_map """
+    """ Unittests for utils.access_nested_map() """
     @parameterized.expand([
-            ({"a": 1}, ("a",), 1),
-            ({"a": {"b": 2}}, ("a",), {"b": 2}),
-            ({"a": {"b": 2}}, ("a", "b"), 2)
-        ])
+        ({"a": 1}, ("a",), 1),
+        ({"a": {"b": 2}}, ("a",), {"b": 2}),
+        ({"a": {"b": 2}}, ("a", "b"), 2)
+    ])
     def test_access_nested_map(
             self, nested_map: Mapping, path: Sequence, expected) -> Any:
         """Tests that access_nested_map() returns what it is supposed to."""
         return self.assertEqual(access_nested_map(nested_map, path), expected)
 
     @parameterized.expand([
-            ({}, ("a",)),
-            ({"a": 1}, ("a", "b"))
+        ({}, ("a",)),
+        ({"a": 1}, ("a", "b"))
     ])
     def test_access_nested_map_exception(self, nested_map, path):
         """Tests if access_nested_map() raises an exception of type KeyError"""
         with self.assertRaises(KeyError):
             access_nested_map(nested_map, path)
+
+
+class TestGetJson(unittest.TestCase):
+    """ Unittests for utils.get_json() """
+    @parameterized.expand([
+        ("http://example.com", {"payload": True}),
+        ("http://holberton.io", {"payload": False})
+    ])
+    def test_get_json(self, test_url, test_payload):
+        """Tests that get_json() returns JSON from mock test_url."""
+        mock_request = Mock()
+        mock_request.json.return_value = test_payload
+        with patch('requests.get', return_value=mock_request):
+            response = get_json(test_url)
+            mock_request.json.assert_called_once()
+        self.assertEqual(response, test_payload)
 
 
 if __name__ == '__main__':
