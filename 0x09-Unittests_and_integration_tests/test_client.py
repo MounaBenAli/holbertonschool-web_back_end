@@ -2,15 +2,9 @@
 """Unittests for client.py a client for the github API."""
 
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, PropertyMock
 from parameterized import parameterized
 from client import GithubOrgClient
-
-from typing import (
-    List,
-    Dict,
-)
-
 from utils import (
     get_json,
     access_nested_map,
@@ -31,6 +25,16 @@ class TestGithubOrgClient(unittest.TestCase):
         test = GithubOrgClient(org_name)
         self.assertEqual(test.org, {'key': 'value'})
         mock.assert_called_once_with(url)
+
+    def test_public_repos_url(self):
+        """unit-test GithubOrgClient._public_repos_url"""
+        with patch(
+            'client.GithubOrgClient.org', new_callable=PropertyMock
+        ) as mock_property:
+            mock_property.return_value = {"repos_url": "https://example.com"}
+            self.assertEqual(
+                GithubOrgClient('test')._public_repos_url,
+                "https://example.com")
 
 
 if __name__ == '__main__':
