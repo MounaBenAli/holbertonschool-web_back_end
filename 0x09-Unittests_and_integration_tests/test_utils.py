@@ -3,8 +3,6 @@
 
 import unittest
 from unittest.mock import patch, Mock
-
-from defer import return_value
 from utils import access_nested_map, get_json, memoize
 from parameterized import parameterized
 from typing import (
