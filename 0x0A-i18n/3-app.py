@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ Parametrize templates"""
 from flask import Flask, render_template
-from flask_babel import Babel
+from flask_babel import Babel, gettext
 from flask import request
 
 app = Flask(__name__)
@@ -18,16 +18,16 @@ class Config(object):
 app.config.from_object(Config)
 
 
-@app.route('/')
-def index():
-    """Renders html template"""
-    return render_template('3-index.html')
-
-
 @babel.localeselector
 def get_locale():
     """ returns the best match for the preferred lg from available languages"""
     return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+
+@app.route('/')
+def index():
+    """Renders html template"""
+    return render_template('3-index.html')
 
 
 if __name__ == "__main__":
