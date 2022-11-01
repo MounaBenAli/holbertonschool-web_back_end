@@ -10,10 +10,16 @@ import sys
 
 
 def count_calls(method: Callable) -> Callable:
-    """Increments the count for that key every time the method is called
-        & Returns the value returned by the original method.
+    """Counts the number of calls for the methods inside the cache class
     """
-    __qualname__ = key
+    key = method.__qualname__
+
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        """wrapper for method"""
+        self._redis.incr(key)
+        return method(self, *args, **kwargs)
+    return wrapper
 
 
 class Cache():
@@ -24,6 +30,7 @@ class Cache():
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """Stores data in redis cache in a key-value pair"""
         k = str(uuid.uuid4())
@@ -31,10 +38,10 @@ class Cache():
 
         return k
 
-    def get(self, key: str, fn: Optional[Callable]
+    def get(self, key: str, fn: Optional[Callable] = None
             ) -> Union[str, bytes, int, float]:
         """Fetch data from redis cache"""
-        
+
         if fn:
             return fn(self._redis.get(key))
         else:
@@ -42,7 +49,7 @@ class Cache():
 
     def get_str(self, str: str) -> str:
         """returns the key as an str"""
-        return str.decode(encoding='UTF-8',errors='strict')
+        return str.decode(encoding='UTF-8', errors='strict')
 
     def get_int(self, key: bytes) -> int:
         """returns the key as an int"""
