@@ -41,9 +41,9 @@ class Cache():
         else:
             return data
 
-    def get_str(self, key: str) -> str:
+    def get_str(self, str: str) -> str:
         """returns the key as an str value"""
-        return str(self._redis.get(key), "UTF-8")
+        return str.decode("utf-8")
 
     def get_int(self, key: int) -> int:
         """returns the key as an int value"""
