@@ -37,9 +37,9 @@ class Cache():
         """Fetch data from redis cache"""
         data = self._redis.get(key)
         if fn:
-            return data
-        else:
             return fn(data)
+        else:
+            return data
 
     def get_str(self, key: str) -> str:
         """returns the key as an str value"""
