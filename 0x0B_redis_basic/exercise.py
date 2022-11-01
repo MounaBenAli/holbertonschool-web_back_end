@@ -34,11 +34,11 @@ class Cache():
     def get(self, key: str, fn: Optional[Callable]
             ) -> Union[str, bytes, int, float]:
         """Fetch data from redis cache"""
-        data = self._redis.get(key)
+        
         if fn:
-            return fn(data)
+            return fn(self._redis.get(key))
         else:
-            return data
+            return self._redis.get(key)
 
     def get_str(self, str: str) -> str:
         """returns the key as an str"""
