@@ -2,6 +2,7 @@
 """
 Learning Redis
 """
+from grpc import Call
 import redis
 import uuid
 from typing import Union, Optional, Callable
@@ -15,10 +16,27 @@ def count_calls(method: Callable) -> Callable:
     key = method.__qualname__
 
     @wraps(method)
-    def wrapper(self, *args, **kwargs):
+    def wrapper(self, *args, **kwds):
         """wrapper for method"""
         self._redis.incr(key)
-        return method(self, *args, **kwargs)
+        return method(self, *args, **kwds)
+    return wrapper
+
+
+def call_history(method: Callable) -> Callable:
+    """Stores history of inputs/outputs for a method
+    """
+    inputs = method.__qualname__ + ":inputs"
+    outputs = method.__qualname__ + ":outputs"
+
+    @wraps(method)
+    def wrapper(self, *args):
+        """wrapper for method"""
+        self._redis.rpush(inputs, str(args))
+        data = method(self, *args)
+        self._redis.rpush(outputs, str(data))
+        return data
+
     return wrapper
 
 
@@ -31,6 +49,7 @@ class Cache():
         self._redis.flushdb()
 
     @count_calls
+    @call_history
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """Stores data in redis cache in a key-value pair"""
         k = str(uuid.uuid4())
