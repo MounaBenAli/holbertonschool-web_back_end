@@ -43,7 +43,7 @@ class Cache():
 
     def get_str(self, str: str) -> str:
         """returns the key as an str value"""
-        return str.decode("utf-8")
+        return str.decode(encoding='UTF-8',errors='strict')
 
     def get_int(self, key: int) -> int:
         """returns the key as an int value"""
