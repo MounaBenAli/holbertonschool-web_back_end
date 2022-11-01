@@ -2,7 +2,6 @@
 """
 Learning Redis
 """
-from grpc import Call
 import redis
 import uuid
 from typing import Union, Optional, Callable
@@ -24,7 +23,7 @@ def count_calls(method: Callable) -> Callable:
 
 
 def call_history(method: Callable) -> Callable:
-    """Stores history of inputs/outputs for a method
+    """Stores history of inputs/outputs for a method in a list
     """
     inputs = method.__qualname__ + ":inputs"
     outputs = method.__qualname__ + ":outputs"
@@ -38,6 +37,12 @@ def call_history(method: Callable) -> Callable:
         return data
 
     return wrapper
+
+
+def replay(method: Callable) -> Callable:
+    """Displays the history of calls of a particular function.
+    """
+    pass
 
 
 class Cache():
