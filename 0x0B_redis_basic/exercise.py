@@ -2,12 +2,11 @@
 """
 Learning Redis
 """
-from matplotlib.backend_bases import key_press_handler
-from pytest import param
 import redis
 import uuid
 from typing import Union, Optional, Callable
 from functools import wraps
+import sys
 
 
 def count_calls(method: Callable) -> Callable:
@@ -42,9 +41,9 @@ class Cache():
             return data
 
     def get_str(self, str: str) -> str:
-        """returns the key as an str value"""
+        """returns the key as an str"""
         return str.decode(encoding='UTF-8',errors='strict')
 
-    def get_int(self, key: int) -> int:
-        """returns the key as an int value"""
-        return int(self._redis.get(key))
+    def get_int(self, key: bytes) -> int:
+        """returns the key as an int"""
+        return int.from_bytes(key, sys.byteorder, signed=False)
