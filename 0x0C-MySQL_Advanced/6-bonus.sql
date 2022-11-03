@@ -7,13 +7,14 @@
 -- score, the score value for the correction
 
 DELIMITER $$
+DROP PROCEDURE IF EXISTS AddBonus;
 CREATE PROCEDURE AddBonus(IN user_id INT, IN project_name VARCHAR(255), IN score INT)
 BEGIN
-    IF EXISTS(SELECT * FROM projects WHERE name = project_name)
-    THEN SET @pro_id = (SELECT id FROM projects WHERE name = project_name);
-    INSERT INTO corrections (user_id, project_id, score) VALUES (user_id, @pro_id, score);
-    ELSE 
-    INSERT INTO projects (name) VALUES (project_name);
+    IF (SELECT * FROM projects WHERE projects.name = project_name) = 0
+    THEN INSERT INTO projects (name) VALUES (project_name);
     END IF;
+
+    SET @pro_id = (SELECT id FROM projects WHERE name = project_name);
+    INSERT INTO corrections (user_id, project_id, score) VALUES (user_id, @pro_id, score);
 END $$
 DELIMITER ;
