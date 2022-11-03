@@ -11,7 +11,7 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS AddBonus;
 CREATE PROCEDURE AddBonus(IN user_id INT, IN project_name VARCHAR(255), IN score INT)
 BEGIN
-    IF (SELECT * FROM projects WHERE projects.name = project_name) = 0
+    IF EXISTS(SELECT * FROM projects WHERE projects.name = project_name) = 0
     THEN INSERT INTO projects (name) VALUES (project_name);
     END IF;
 
