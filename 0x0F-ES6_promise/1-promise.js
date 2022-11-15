@@ -7,4 +7,4 @@ function getFullResponseFromAPI() {
     }
   });
 }
-export default getFullResponseFromAPI(success);
+export default getFullResponseFromAPI;
