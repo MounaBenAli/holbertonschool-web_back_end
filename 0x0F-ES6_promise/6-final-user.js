@@ -1,4 +1,3 @@
-/* eslint no-unused-vars: "error" */
 import signUpUser from './4-user-promise';
 import uploadPhoto from './5-photo-reject';
 
@@ -7,10 +6,5 @@ export default function handleProfileSignup(firstName, lastName, fileName) {
   const promise2 = uploadPhoto(fileName);
   const promises = [promise1, promise2];
   return Promise.allSettled(promises)
-    .then((results) => results.forEach((result) => {
-      console.log(
-        ` status: ${result.status} `,
-        ` value: ${result.value} `,
-      );
-    }));
+    .then((results) => results);
 }
