@@ -1,7 +1,7 @@
 export default class Pricing {
   constructor(amount, currency) {
-    this.amount = amount; // string
-    this.currency = currency; // string
+    this.amount = amount; 
+    this.currency = currency; 
   }
 
   // Setters & Getters for the attribute amount
@@ -27,4 +27,4 @@ export default class Pricing {
   static convertPrice(amount, conversionRate) {
     return amount * conversionRate;
   }
-}
+};
