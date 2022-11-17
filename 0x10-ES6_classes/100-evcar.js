@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Car from './10-car';
 
 export default class EVCar extends Car {
@@ -7,6 +8,6 @@ export default class EVCar extends Car {
   }
 
   cloneCar() {
-    super.cloneCar();
+    return new Car();
   }
 }
