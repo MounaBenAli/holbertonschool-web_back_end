@@ -4,4 +4,4 @@ export default function getListStudentIds(arr) {
   }
 
   return [];
-}
+};
