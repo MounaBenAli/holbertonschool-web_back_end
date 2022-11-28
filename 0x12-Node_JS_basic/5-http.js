@@ -8,7 +8,8 @@ const app = http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.write('Hello Holberton School!');
     res.end();
-  } else (req.url === '/students'); {
+  }
+  if (req.url === '/students') {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.write('This is the list of our students');
     res.end();
@@ -16,7 +17,7 @@ const app = http.createServer((req, res) => {
 });
 
 app.listen(port, hostname, () => {
-  //console.log(`Server running at http://${hostname}:${port}/`);
+  // console.log(`Server running at http://${hostname}:${port}/`);
 });
 
 module.exports = app;
