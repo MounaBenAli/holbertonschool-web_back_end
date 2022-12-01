@@ -16,3 +16,4 @@ describe('simple Math  Test', () => {
     assert.strictEqual(calculateNumber(false, 0.9), 1);
   });
 });
+
