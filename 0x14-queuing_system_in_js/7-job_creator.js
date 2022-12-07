@@ -1,3 +1,6 @@
+const kue = require('kue');
+
+const queue = kue.createQueue();
 const jobs = [
   {
     phoneNumber: '4153518780',
@@ -44,9 +47,6 @@ const jobs = [
     message: 'This is the code 4321 to verify your account',
   },
 ];
-const kue = require('kue');
-
-const queue = kue.createQueue();
 
 jobs.forEach((element) => {
   const job = queue.create('push_notification_code_2', element).save((error) => {
