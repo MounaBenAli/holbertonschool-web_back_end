@@ -1,33 +1,32 @@
-/* eslint-disable jest/expect-expect */
+const mocha = require('mocha');
 const assert = require('assert');
-const calculateNumber = require('./1-calcul');
+const calculateNumber = require('./1-calcul.js');
 
-describe('calculateNumber type == SUM', () => {
-  // eslint-disable-next-line jest/prefer-expect-assertions
-  it('should return the sum of the two numbers rounded to the nearest integer', () => {
-    assert.strictEqual(calculateNumber('SUM', 1.4, 4.5), 6);
-    assert.strictEqual(calculateNumber('SUM', 2, 3.7), 6);
-    assert.strictEqual(calculateNumber('SUM', 1, -1), 0);
-    assert.strictEqual(calculateNumber('SUM', 0.4, 1.5), 2);
+describe('calculateNumber', () => {
+  it('returns rounded sum with SUM', () => {
+    assert.strictEqual(calculateNumber('SUM', 1, 3), 4);
+    assert.strictEqual(calculateNumber('SUM', 1.6, 3), 5);
+    assert.strictEqual(calculateNumber('SUM', 1.2, 3.8), 5);
+    assert.strictEqual(calculateNumber('SUM', -1, -3), -4);
+    assert.strictEqual(calculateNumber('SUM', -1.4, -3.6), -5);
   });
-});
-
-describe('calculateNumber type == SUBTRACT', () => {
-  // eslint-disable-next-line jest/prefer-expect-assertions
-  it('should return the difference of the two numbers rounded to the nearest integer', () => {
-    assert.strictEqual(calculateNumber('SUBTRACT', 1.4, 4.5), -4);
-    assert.strictEqual(calculateNumber('SUBTRACT', 1.5, 3.7), -2);
-    assert.strictEqual(calculateNumber('SUBTRACT', 0.4, 1.6), -2);
-    assert.strictEqual(calculateNumber('SUBTRACT', 4.5, 2), 3);
+  it('returns rounded sum with SUBTRACT', () => {
+    assert.strictEqual(calculateNumber('SUBTRACT', 1, 3), -2);
+    assert.strictEqual(calculateNumber('SUBTRACT', 1.6, 3), -1);
+    assert.strictEqual(calculateNumber('SUBTRACT', 1.2, 3.8), -3);
+    assert.strictEqual(calculateNumber('SUBTRACT', -1, -3), 2);
+    assert.strictEqual(calculateNumber('SUBTRACT', -1.4, -3.6), 3);
   });
-});
-
-describe('calculateNumber type == DIVIDE', () => {
-  // eslint-disable-next-line jest/prefer-expect-assertions
-  it('should return the division of the two numbers rounded to the nearest integer', () => {
-    assert.strictEqual(calculateNumber('DIVIDE', 2, 2.5), 0.6666666666666666);
-    assert.strictEqual(calculateNumber('DIVIDE', 0.0, 2), 0);
-    assert.strictEqual(calculateNumber('DIVIDE', -1, 1), -1);
-    assert.strictEqual(calculateNumber('DIVIDE', 1, 0), 'Error');
+  it('returns rounded sum with DIVIDE', () => {
+    assert.strictEqual(calculateNumber('DIVIDE', 1.4, 4.5), 0.2);
+  });
+  it('returns error string when DIVIDE by 0', () => {
+    assert.strictEqual(calculateNumber('DIVIDE', 1.4, 0), 'Error');
+  });
+  it('should throw error if NaN passed', () => {
+    assert.throws(() => calculateNumber('SUM', NaN, 3), '[Function: TypeError]');
+  });
+  it('should throw error if invalid type', () => {
+    assert.throws(() => calculateNumber('blah', 2, 3), '[Function: TypeError]');
   });
 });
