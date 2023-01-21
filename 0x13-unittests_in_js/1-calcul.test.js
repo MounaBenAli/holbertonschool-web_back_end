@@ -14,7 +14,7 @@ describe('calculateNumber', () => {
 
   describe('type == SUBTRACT', () => {
     it('should return the difference of the two numbers rounded to the nearest integer', () => {
-      assert.strictEqual(calculateNumber('SUBTRACT', 5, 3), 2);
+      assert.strictEqual(calculateNumber('SUBTRACT', 1.4, 4.5), -4);
       assert.equal(calculateNumber('SUBTRACT', 1.5, 3.7), -2);
       assert.equal(calculateNumber('SUBTRACT', 0.4, 1.6), -2);
       assert.strictEqual(calculateNumber('SUBTRACT', 4.5, 2), 3);
@@ -24,16 +24,16 @@ describe('calculateNumber', () => {
   describe('type == DIVIDE', () => {
     describe('when b is not zero', () => {
       it('should return the division of the two numbers rounded to the nearest integer', () => {
+        assert.strictEqual(calculateNumber('DIVIDE', 1.4, 4.5), 0.2);
         assert.strictEqual(calculateNumber('DIVIDE', -1, 1), -1);
+        assert.strictEqual(calculateNumber('DIVIDE', 0.0, 2), 0);
+        assert.equal(calculateNumber('DIVIDE', 1.6, -4.6), -0.4);
       });
     });
 
     describe('when b is zero', () => {
       it('should return Error', () => {
         assert.strictEqual(calculateNumber('DIVIDE', 1.4, 0), 'Error');
-        assert.strictEqual(calculateNumber('DIVIDE', -1, 1), -1);
-        assert.strictEqual(calculateNumber('DIVIDE', 0.0, 2), 0);
-        assert.equal(calculateNumber('DIVIDE', 1.6, -4.6), -0.4);
       });
     });
   });
