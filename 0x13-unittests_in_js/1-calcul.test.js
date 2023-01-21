@@ -3,22 +3,18 @@ const assert = require('assert');
 const calculateNumber = require('./1-calcul');
 
 describe('calculateNumber', () => {
-  describe('type == SUM', () => {
-    it('should return the sum of the two numbers rounded to the nearest integer', () => {
+  it('type == SUM', () => {
       assert.strictEqual(calculateNumber('SUM', 1.4, 4.5), 6);
       assert.strictEqual(calculateNumber('SUM', 2, 3.7), 6);
       assert.strictEqual(calculateNumber('SUM', 1, -1), 0);
       assert.equal(calculateNumber('SUM', 0.4, 1.5), 2);
-    });
   });
 
-  describe('type == SUBTRACT', () => {
-    it('should return the difference of the two numbers rounded to the nearest integer', () => {
+  it('type == SUBTRACT', () => {
       assert.strictEqual(calculateNumber('SUBTRACT', 1.4, 4.5), -4);
       assert.equal(calculateNumber('SUBTRACT', 1.5, 3.7), -2);
       assert.equal(calculateNumber('SUBTRACT', 0.4, 1.6), -2);
       assert.strictEqual(calculateNumber('SUBTRACT', 4.5, 2), 3);
-    });
   });
 
   describe('type == DIVIDE', () => {
