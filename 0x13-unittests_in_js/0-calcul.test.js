@@ -1,5 +1,7 @@
+/* eslint-disable jest/prefer-expect-assertions */
+/* eslint-disable jest/expect-expect */
 const assert = require('assert');
-const calculateNumber = require('./0-calcul.js');
+const calculateNumber = require('./0-calcul');
 
 describe('simple Math  Test', () => {
   it('should return round sum', () => {
@@ -16,4 +18,3 @@ describe('simple Math  Test', () => {
     assert.strictEqual(calculateNumber(false, 0.9), 1);
   });
 });
-
