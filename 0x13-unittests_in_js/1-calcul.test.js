@@ -3,7 +3,7 @@ const assert = require('assert');
 const calculateNumber = require('./1-calcul');
 
 describe('calculateNumber', () => {
-  describe('when type is SUM', () => {
+  describe('type == SUM', () => {
     it('should return the sum of the two numbers rounded to the nearest integer', () => {
       assert.strictEqual(calculateNumber('SUM', 1.4, 4.5), 6);
       assert.strictEqual(calculateNumber('SUM', 2, 3.7), 6);
@@ -12,7 +12,7 @@ describe('calculateNumber', () => {
     });
   });
 
-  describe('when type is SUBTRACT', () => {
+  describe('type == SUBTRACT', () => {
     it('should return the difference of the two numbers rounded to the nearest integer', () => {
       assert.strictEqual(calculateNumber('SUBTRACT', 5, 3), 2);
       assert.equal(calculateNumber('SUBTRACT', 1.5, 3.7), -2);
@@ -21,7 +21,7 @@ describe('calculateNumber', () => {
     });
   });
 
-  describe('when type is DIVIDE', () => {
+  describe('type == DIVIDE', () => {
     describe('when b is not zero', () => {
       it('should return the division of the two numbers rounded to the nearest integer', () => {
         assert.strictEqual(calculateNumber('DIVIDE', -1, 1), -1);
